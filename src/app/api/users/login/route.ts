@@ -38,12 +38,14 @@ export async function POST(request: NextRequest) {
     const response = NextResponse.json({
       message: "Login successful",
       success: true,
+      user
     });
     response.cookies.set("token", token, {
       httpOnly: true,
     });
     return response;
   } catch (error: any) {
-    return NextResponse.json({ error: error.messaege });
+    console.log(error);
+    return NextResponse.json({ error: error.messaege }, { status: 500 });
   }
 }

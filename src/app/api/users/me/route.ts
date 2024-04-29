@@ -8,12 +8,17 @@ export async function GET(request: NextRequest) {
   // TODO: EXtract data from Token
   try {
     const userId = await getDataFromToken(request);
-    const user = User.findOne({ _id: userId }).select("-password");
+    console.log(userId);
+    const user = await User.findOne({ _id: userId }).select("-password");
     if (!user) {
-      return NextResponse.json({ message: "Invalid Token", data: user });
+      return NextResponse.json({ message: "Invalid Token" });
     }
-    return NextResponse.json({ message: "user found", success: true, user });
+    return NextResponse.json({
+      mesaaage: "User found",
+      data: user,
+    });
   } catch (error: any) {
+    console.log(error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }

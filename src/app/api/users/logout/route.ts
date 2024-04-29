@@ -13,6 +13,7 @@ export async function GET(request: NextRequest) {
       httpOnly: true,
       expires: new Date(0),
     });
+    console.log(response.cookies)
     return response;
   } catch (error: any) {
     return NextResponse.json({ message: error.message }, { status: 500 });

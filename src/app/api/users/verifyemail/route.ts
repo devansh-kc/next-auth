@@ -16,15 +16,16 @@ export async function POST(request: NextRequest) {
       verifyToken: token,
       verifyTokenExpiry: { $gt: Date.now() },
     });
-    console.log(user);
     if (!user) {
       return NextResponse.json({ error: "Invalid token" }, { status: 400 });
     }
+    console.log(user);
     user.isVerified = true;
     user.verifyToken = undefined;
     user.verifyTokenExpiry = undefined;
 
     const updatedUser = await user.save();
+    console.log(updatedUser);
     return NextResponse.json(
       { message: "Email verified sucessfully ", sucess: true, updatedUser },
       { status: 200 }
